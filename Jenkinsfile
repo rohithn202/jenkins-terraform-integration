@@ -3,6 +3,11 @@ pipeline {
     tools {
         terraform 'Terraform'
     }
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('AWS_Accesskey')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_Secretaccesskey')
+    }
+
     stages {
         stage('checkout') {
             steps {
