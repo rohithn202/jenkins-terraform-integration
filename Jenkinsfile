@@ -4,21 +4,24 @@ pipeline {
         terraform 'Terraform'
     }
     stages {
-        stage('checkout'){
+        stage('checkout') {
             steps {
                 git branch: 'master', url: 'https://github.com/rohithn202/jenkins-terraform-integration.git'
             }
         }
         stage('terraform init') {
             steps {
-                sh 'terraform init'
+                dir('infra/backend-support') {  
+                    sh 'terraform init'
+                }
             }
         }
         stage('Terraform apply') {
             steps {
-                sh 'terraform apply --auto-approve'
+                dir('infra/backend-support') {  
+                    sh 'terraform apply --auto-approve'
+                }
             }
         }
-        
     }
 }
