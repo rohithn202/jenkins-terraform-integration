@@ -9,21 +9,49 @@ pipeline {
     }
 
     stages {
-        stage('checkout') {
+        stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/rohithn202/jenkins-terraform-integration.git'
+                git branch: 'feature1', url: 'https://github.com/rohithn202/jenkins-terraform-integration.git'
             }
         }
-        stage('terraform init') {
+        stage('Terraform Init - Backend Support') {
             steps {
                 dir('infra/backend-support') {  
                     sh 'terraform init'
                 }
             }
         }
-        stage('Terraform apply') {
+        stage('Terraform Apply - Backend Support') {
             steps {
                 dir('infra/backend-support') {  
+                    sh 'terraform apply --auto-approve'
+                }
+            }
+        }
+        stage('Terraform Init - Base') {
+            steps {
+                dir('infra/base') {  
+                    sh 'terraform init'
+                }
+            }
+        }
+        stage('Terraform Apply - Base') {
+            steps {
+                dir('infra/base') {  
+                    sh 'terraform apply --auto-approve'
+                }
+            }
+        }
+        stage('Terraform Init - News') {
+            steps {
+                dir('infra/news') {  
+                    sh 'terraform init'
+                }
+            }
+        }
+        stage('Terraform Apply - News') {
+            steps {
+                dir('infra/news') {  
                     sh 'terraform apply --auto-approve'
                 }
             }
