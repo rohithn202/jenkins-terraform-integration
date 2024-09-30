@@ -14,6 +14,18 @@ pipeline {
                 git branch: 'feature1', url: 'https://github.com/rohithn202/jenkins-terraform-integration.git'
             }
         }
+        stage('terraform init') {
+            steps {
+                dir('infra/backend-support') {  
+                    sh 'terraform init'
+                }
+            }
+        }
+        stage('Terraform apply') {
+            steps {
+                dir('infra/backend-support') {  
+                    sh 'terraform apply --auto-approve'
+
         stage('Terraform Init - Base') {
             steps {
                 dir('infra/base') {  
